@@ -4,8 +4,9 @@ class Answer {
         this.result = result;
     }
 
-    get difficulty() {
-        return new Skill(this.challenge.skill).difficulty
+    get maxDifficulty() {
+        const difficulties = this.challenge.skills.map(skill => skill.difficulty);
+        return Math.max(...difficulties);
     }
 }
 

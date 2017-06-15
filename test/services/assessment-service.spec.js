@@ -1,10 +1,8 @@
-const { describe, it } = require('mocha');
 const expect = require('chai').expect;
 const assessmentService = require('../../src/services/assessment-service');
 const Course = require('../../src/models/course');
 const Challenge = require('../../src/models/challenge');
 const Answer = require('../../src/models/answer');
-const Question = require('../../src/models/question');
 const Skill = require('../../src/models/skill');
 
 

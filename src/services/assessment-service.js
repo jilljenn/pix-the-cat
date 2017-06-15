@@ -1,5 +1,4 @@
 const Skill = require('../models/skill');
-const Tube = require('../models/tube');
 
 
 function _computeTubesOfCourse(course) {
@@ -16,14 +15,6 @@ function _computeTubesOfCourse(course) {
   });
   Object.keys(tubes).forEach(tubeName => tubes[tubeName].sort());
   return tubes;
-}
-
-function _computeSkillsOfChallenge(course) {
-  const skillsOfChallenge = {};
-  course.challenges.forEach(challenge => {
-    skillsOfChallenge[challenge.id] = skill;
-  });
-  return skillsOfChallenge;
 }
 
 function _probaOfCorrectAnswer(level, difficulty) {
