@@ -17,9 +17,9 @@ function _computeTubesOfCourse(course) {
   return tubes;
 }
 
-function _filterChallenges(challenges) {
-  filteredChallenges = challenges;
-  return filteredChallenges;
+function _filterChallenges(challenges, answers) {
+  const answeredChallenges = answers.map(answer => answer.challenge);
+  return challenges.filter(challenge => !answeredChallenges.includes(challenge));
 }
 
 function _computeReward(challenge) {
@@ -37,7 +37,7 @@ function getNextChallenge(assessment) {
   /* const validatedSkills = assessment.validatedSkills;
   const failedSkills = assessment.failedSkills;
   const estimatedLevel = assessment.estimatedLevel; */
-  const filteredChallenges = _filterChallenges();
+  const filteredChallenges = _filterChallenges(assessment.course.challenges);
   const challenge = _findBestChallenge();
   return challenge;
 }

@@ -113,6 +113,31 @@ describe('Unit | Service | assessmentService', function() {
     });
   });
 
+  describe('#_filterChallenges()', function() {
+    it('should exist', function() {
+      expect(assessmentService._filterChallenges).to.exist;
+    });
+
+    it('should return challenges that have not been already answered', function() {
+      // given
+      const web1 = new Skill('web', 1);
+      const web2 = new Skill('web', 2);
+      const url3 = new Skill('url', 3);
+      const ch1 = new Challenge('a', [web1]);
+      const ch2 = new Challenge('b', [web2]);
+      const ch3 = new Challenge('c', [url3]);
+      const answer1 = new Answer(ch2, 'ok');
+      const answer2 = new Answer(ch3, 'ok');
+      const challenges = [ch1, ch2, ch3];
+
+      // when
+      const filteredChallenges = assessmentService._filterChallenges(challenges, [answer1, answer2]);
+
+      // then
+      expect(filteredChallenges).to.deep.equal([ch1]);
+    });
+  });
+
   describe.skip('#_computeLikelihood()', function() {
     it('should exist', function() {
       expect(assessmentService._computeLikelihood).to.exist;
