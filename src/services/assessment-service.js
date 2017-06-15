@@ -37,7 +37,7 @@ function getNextChallenge(assessment) {
   /* const validatedSkills = assessment.validatedSkills;
   const failedSkills = assessment.failedSkills;
   const estimatedLevel = assessment.estimatedLevel; */
-  const filteredChallenges = _filterChallenges(assessment.course.challenges);
+  const filteredChallenges = _filterChallenges(assessment.course.challenges, assessment.answers);
   const challenge = _findBestChallenge();
   return challenge;
 }
