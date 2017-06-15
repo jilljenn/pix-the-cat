@@ -136,6 +136,19 @@ describe('Unit | Service | assessmentService', function() {
       // then
       expect(filteredChallenges).to.deep.equal([ch1]);
     });
+
+    it('should return an empty array when all challenges have been answered', function() {
+      // given
+      const web1 = new Skill('web', 1);
+      const ch1 = new Challenge('a', [web1]);
+      const answer1 = new Answer(ch1, 'ok');
+
+      // when
+      const filteredChallenges = assessmentService._filterChallenges([ch1], [answer1]);
+
+      // then
+      expect(filteredChallenges).to.deep.equal([]);
+    });
   });
 
   describe.skip('#_computeLikelihood()', function() {
