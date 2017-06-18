@@ -6,14 +6,10 @@ class Assessment {
 
   get validatedSkills() {
     const validated = new Set();
-    console.log('tubes', this.course.tubes);
     this.answers.forEach(answer => {
-      if(answer.result == 'ok') {
-        console.log(answer.challenge.skills);
+      if(answer.result === 'ok') {
         answer.challenge.skills.forEach(skill => {
-          console.log(skill);
           skill.getEasierWithin(this.course.tubes).forEach(validatedSkill => {
-            console.log(validatedSkill, 'yo');
             validated.add(validatedSkill);
           });
         })
@@ -23,7 +19,15 @@ class Assessment {
   }
 
   get failedSkills() {
-    return;
+    const failed = new Set();
+    this.answers.forEach(answer => {
+      if(answer.result !== 'ok') {
+        answer.challenge.hardestSkill.getHarderWithin(this.course.tubes).forEach(validatedSkill => {
+          failed.add(validatedSkill);
+        });
+      }
+    });
+    return failed;
   }
 
   get estimatedLevel() {

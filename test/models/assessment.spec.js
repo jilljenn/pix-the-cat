@@ -161,11 +161,41 @@ describe('Unit | Model | Assessment', function() {
       const ch1 = new Challenge('a', [web2]);
       const ch2 = new Challenge('b', [web1, web3, url3, url4, url5, url6]);
       const course = new Course([ch1, ch2]);
-      const answer = new Answer(ch1, 'ok')
+      const answer = new Answer(ch1, 'ok');
       const assessment = new Assessment(course, [answer]);
 
       // then      
       expect([...assessment.validatedSkills]).to.be.deep.equal([web1, web2]);
+    });
+  });
+
+  describe('#failedSkills', function() {
+    it('should exist', function() {
+      // given
+      const course = new Course([]);
+      const assessment = new Assessment(course, []);
+
+      // then      
+      expect(assessment.failedSkills).to.exist;
+    });
+
+    it('should return [url5, url6] if the user fails a question that requires web1 and url5', function() {
+      // given
+      const web1 = new Skill('web', 1);
+      const web2 = new Skill('web', 2);
+      const web3 = new Skill('web', 3);
+      const url3 = new Skill('url', 3);
+      const url4 = new Skill('url', 4);
+      const url5 = new Skill('url', 5);
+      const url6 = new Skill('url', 6);
+      const ch1 = new Challenge('a', [web1, url5]);
+      const ch2 = new Challenge('b', [web2, web3, url3, url4, url6]);
+      const course = new Course([ch1, ch2]);
+      const answer = new Answer(ch1, 'ko');
+      const assessment = new Assessment(course, [answer]);
+
+      // then      
+      expect([...assessment.failedSkills]).to.be.deep.equal([url5, url6]);
     });
   });
 });
