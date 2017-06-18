@@ -9,7 +9,6 @@ const Skill = require('../../src/models/skill');
 const Assessment = require('../../src/models/assessment');
 chai.use(require('sinon-chai'));
 
-
 describe('Unit | Service | assessmentService', function() {
 
   describe('#getNextChallenge()', function() {
@@ -148,35 +147,6 @@ describe('Unit | Service | assessmentService', function() {
 
       // then
       expect(filteredChallenges).to.deep.equal([]);
-    });
-  });
-
-  describe.skip('#_computeLikelihood()', function() {
-    it('should exist', function() {
-      expect(assessmentService._computeLikelihood).to.exist;
-    });
-
-    it('should return a value', function() {
-      // given
-      /* const answer1 = new Answer('a', 'ok');
-      const answer2 = new Answer('b', 'ko'); */
-      const ch1 = new Challenge('a', 'web4');
-      const ch2 = new Challenge('b', 'web5');
-      const ch3 = new Challenge('c', 'url1');
-      const q1 = new Question(4, 1);
-      const q2 = new Question(5, 0);
-      const history = [q1, q2];
-      // console.log(history);
-      const challenges = [ch1, ch2, ch3];
-      const course = new Course(challenges);
-
-      // when
-
-
-      // then
-      const expectedTubes = {'web': [4, 5], 'url': [1]};
-      const likelihoodValues = [3.5, 4.5, 5.5].map(level => assessmentService._computeLikelihood(level, history));
-      expect(likelihoodValues).to.deep.equal([1, 2, 3]);
     });
   });
 });

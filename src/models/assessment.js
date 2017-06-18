@@ -1,11 +1,3 @@
-function _probaOfCorrectAnswer(level, difficulty) {
-  return 1 / (1 + Math.exp(-(level - difficulty)));
-}
-
-function _computeLikelihood(level, history) {
-  return -Math.abs(history.map(question => question.outcome - _probaOfCorrectAnswer(level, question.difficulty)).reduce((a, b) => a + b));
-}
-
 function _computeEstimatedLevel(history) {
   return 1;
   // let maxLikelihood = 0;
@@ -23,22 +15,30 @@ function _computeEstimatedLevel(history) {
 }
 
 class Assessment {
-    constructor(course, answers) {
-        this.course = course;
-        this.answers = answers;
-    }
+  constructor(course, answers) {
+    this.course = course;
+    this.answers = answers;
+  }
 
-    get validatedSkills() {
-        return;
-    }
+  get validatedSkills() {
+    return;
+  }
 
-    get acquiredSkills() {
-        return;
-    }
+  get acquiredSkills() {
+    return;
+  }
 
-    get estimatedLevel() {
-        return;
-    }
+  get estimatedLevel() {
+    return;
+  }
+
+  _probaOfCorrectAnswer(level, difficulty) {
+    return 1 / (1 + Math.exp(-(level - difficulty)));
+  }
+
+  _computeLikelihood(level, answers) {
+    return -Math.abs(answers.map(answer => answer.binaryOutcome - this._probaOfCorrectAnswer(level, answer.maxDifficulty)).reduce((a, b) => a + b));
+  }
 }
 
 module.exports = Assessment;

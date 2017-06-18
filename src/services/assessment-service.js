@@ -1,6 +1,5 @@
 const Skill = require('../models/skill');
 
-
 function _computeTubesOfCourse(course) {
   const tubes = {};
   course.challenges.forEach(challenge => {

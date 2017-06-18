@@ -4,6 +4,7 @@ const Skill = require('../../src/models/skill');
 const Challenge = require('../../src/models/challenge');
 
 describe('Unit | Model | Answer', function() {
+  
   describe('#maxDifficulty()', function() {
     it('should exist', function() {
       // given
@@ -27,6 +28,41 @@ describe('Unit | Model | Answer', function() {
 
       // then
       expect(maxDifficulty).to.equal(5);
+    });
+  });
+
+  describe('#binaryOutcome()', function() {
+    it('should exist', function() {
+      // given
+      const challenge = new Challenge('recXXX', []);
+      const answer = new Answer(challenge, 'ko');
+
+      // then
+      expect(answer.binaryOutcome).to.exist;
+    });
+
+    it('should return 1 if answer is correct', function() {
+      // given
+      const challenge = new Challenge('recXXX', []);
+      const answer = new Answer(challenge, 'ok');
+
+      // when
+      const maxDifficulty = answer.binaryOutcome;
+
+      // then
+      expect(maxDifficulty).to.equal(1);
+    });
+
+    it('should return 0 if answer is not correct', function() {
+      // given
+      const challenge = new Challenge('recXXX', []);
+      const answer = new Answer(challenge, 'partial');
+
+      // when
+      const maxDifficulty = answer.binaryOutcome;
+
+      // then
+      expect(maxDifficulty).to.equal(0);
     });
   });
 });
