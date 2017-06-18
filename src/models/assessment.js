@@ -5,10 +5,24 @@ class Assessment {
   }
 
   get validatedSkills() {
-    return;
+    const validated = new Set();
+    console.log('tubes', this.course.tubes);
+    this.answers.forEach(answer => {
+      if(answer.result == 'ok') {
+        console.log(answer.challenge.skills);
+        answer.challenge.skills.forEach(skill => {
+          console.log(skill);
+          skill.getEasierWithin(this.course.tubes).forEach(validatedSkill => {
+            console.log(validatedSkill, 'yo');
+            validated.add(validatedSkill);
+          });
+        })
+      }
+    });
+    return validated;
   }
 
-  get acquiredSkills() {
+  get failedSkills() {
     return;
   }
 
