@@ -6,7 +6,7 @@ const Challenge = require('../../src/models/challenge');
 const Skill = require('../../src/models/skill');
 
 describe('Unit | Model | Assessment', function() {
-  
+
   describe('#_probaOfCorrectAnswer()', function() {
     it('should exist', function() {
       // given
@@ -65,10 +65,10 @@ describe('Unit | Model | Assessment', function() {
       const answer2 = new Answer(ch2, 'ko');
       const answers = [answer1, answer2];
       const course = new Course(challenges);
-      const assessment = new Assessment(course);
+      const assessment = new Assessment(course, answers);
 
       // when
-      const likelihoodValues = [3.5, 4.5, 5.5].map(level => assessment._computeLikelihood(level, answers));      
+      const likelihoodValues = [3.5, 4.5, 5.5].map(level => assessment._computeLikelihood(level, assessment.answers));      
 
       // then
       expect(likelihoodValues).to.deep.equal([-0.44003380739549824, -0, -0.44003380739549824]);
@@ -87,13 +87,55 @@ describe('Unit | Model | Assessment', function() {
       const answer2 = new Answer(ch2, 'ko');
       const answers = [answer1, answer2];
       const course = new Course(challenges);
-      const assessment = new Assessment(course);
+      const assessment = new Assessment(course, answers);
 
       // when
-      const likelihoodValues = [1.2, 3.4, 5.6].map(level => assessment._computeLikelihood(level, answers));
+      const likelihoodValues = [1.2, 3.4, 5.6].map(level => assessment._computeLikelihood(level, assessment.answers));
 
       // then
       likelihoodValues.forEach(likelihoodValue => expect(likelihoodValue).to.be.below(0));
+    });
+  });
+
+  describe('#estimatedLevel', function() {
+    it('should exist', function() {
+      // given
+      const course = new Course([]);
+      const assessment = new Assessment(course, []);
+
+      // then      
+      expect(assessment.estimatedLevel).to.exist;
+    });
+
+    it('should return 2 if user did not provide any answers so far', function() {
+      // given
+      const course = new Course([]);
+      const assessment = new Assessment(course, []);
+
+      // then      
+      expect(assessment.estimatedLevel).to.be.equal(2);
+    });
+
+    it('should return 4.5 if user answered correctly a question of maxDifficulty 4 but failed at 5', function() {
+      // given
+      const web4 = new Skill('web', 4);
+      const web5 = new Skill('web', 5);
+      const url1 = new Skill('url', 1);
+      const ch1 = new Challenge('a', [web4]);
+      const ch2 = new Challenge('b', [web5]);
+      const ch3 = new Challenge('c', [url1]);
+      const challenges = [ch1, ch2, ch3];
+      const answer1 = new Answer(ch1, 'ok');
+      const answer2 = new Answer(ch2, 'ko');
+      const answers = [answer1, answer2];
+      const course = new Course(challenges);
+      const assessment = new Assessment(course, answers);
+
+      // when
+      const estimatedLevel = assessment.estimatedLevel;
+
+      // then
+      expect(estimatedLevel).to.equal(4.5);
     });
   });
 });

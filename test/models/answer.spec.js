@@ -4,8 +4,8 @@ const Skill = require('../../src/models/skill');
 const Challenge = require('../../src/models/challenge');
 
 describe('Unit | Model | Answer', function() {
-  
-  describe('#maxDifficulty()', function() {
+
+  describe('#maxDifficulty', function() {
     it('should exist', function() {
       // given
       const url1 = new Skill('url', 1);
@@ -31,7 +31,7 @@ describe('Unit | Model | Answer', function() {
     });
   });
 
-  describe('#binaryOutcome()', function() {
+  describe('#binaryOutcome', function() {
     it('should exist', function() {
       // given
       const challenge = new Challenge('recXXX', []);
