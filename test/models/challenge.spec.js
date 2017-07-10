@@ -14,7 +14,7 @@ describe('Unit | Model | Challenge', function() {
       expect(challenge.hardestSkill).to.exist;
     });
 
-    it('should return web5 if challenge requires url1 and web5', function() {
+    it('should be web5 if challenge requires url1 and web5', function() {
       // given
       const web5 = new Skill('web', 5);
       const url1 = new Skill('url', 1);

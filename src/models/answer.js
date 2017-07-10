@@ -5,7 +5,7 @@ class Answer {
   }
 
   get binaryOutcome() {
-    if(this.result == 'ok') {
+    if(this.result === 'ok') {
       return 1;
     } else {
       return 0;

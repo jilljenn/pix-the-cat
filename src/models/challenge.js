@@ -5,7 +5,7 @@ class Challenge {
   }
 
   get hardestSkill() {
-    return this.skills.sort((s1, s2) => s1.difficulty - s2.difficulty).slice(-1)[0];
+    return this.skills.reduce((s1, s2) => (s1.difficulty > s2.difficulty) ? s1 : s2);
   }
 }
 
